@@ -1,0 +1,36 @@
+version: 0.1
+name: NodeJS
+description: NodeJS webservice automatic deployment via Github.
+image: logo.jpg
+resources:
+  - name: main
+    type: container
+    size:
+      minimum: nano
+      default: nano
+    platform: node
+    build: >
+      rm -r * &&
+      git clone {{ repository.url }} . --branch {{ repository.branch }} --depth 1 &&
+      npm install &&
+      {{ build }}
+    start: '{{ start }}'
+    https: true
+triggers:
+  - type: github
+    repository:
+      name: '{{ repository.name }}'
+      branch: '{{ repository.branch }}'
+inputs:
+  - name: repository
+    label: Github Repository
+    type: github
+    required: true
+  - name: build
+    label: Build Command
+    type: text
+    default: npm run build
+  - name: start
+    label: Start Command
+    type: text
+    default: npm start
