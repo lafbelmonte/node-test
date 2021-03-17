@@ -10,7 +10,8 @@ resources:
       default: nano
     platform: node
     build: >
-      rm -f !start.sh && rm -r * && rm -rf .git &&
+      rm !(start.sh) && rm -r * && rm -rf .git &&
+      ls &&
       git clone {{ repository.url }} . --branch {{ repository.branch }} --depth 1 &&
       npm install &&
       {{ build }}
