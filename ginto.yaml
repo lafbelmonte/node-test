@@ -1,5 +1,5 @@
 version: 0.1
-name: NodeJS
+name: NodeJS-Test
 description: NodeJS webservice automatic deployment via Github.
 image: logo.jpg
 resources:
