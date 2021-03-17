@@ -10,11 +10,12 @@ resources:
       default: nano
     platform: node
     build: >
-      rm -rf .git &&
-      git clone {{ repository.url }} . --branch {{ repository.branch }} --depth 1 &&
+      rm -rf ./project &&
+      git clone {{ repository.url }} ./project --branch {{ repository.branch }} --depth 1 &&
+      cd ./project &&
       npm install &&
       {{ build }}
-    start: '{{ start }}'
+    start: cd ./project && {{ start }}
     https: true
 triggers:
   - type: github
